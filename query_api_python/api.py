@@ -1,4 +1,3 @@
-import json
 import requests
 
 from query_api_python.types import ApiConfig, Query, RequestOptions, RequestType
@@ -9,8 +8,8 @@ from typing import Union, List
 
 class Api:
 
-    def __init__(self, _api_config: str):
-        self.api_config = ApiConfig(json.loads(_api_config))
+    def __init__(self, _api_config: dict):
+        self.api_config = ApiConfig(_api_config)
 
     def fetch(self,
               queries: Union[Query, List[Query]],
