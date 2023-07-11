@@ -8,14 +8,14 @@ class ApiAuthenticationConfigType(Enum):
     CLIENT_CREDENTIALS = 1
     PKCE = 2
 
-    def __str__(self):
+    def __str__(self) -> str:
         return 'pkcd' if self.name == 'PKCE' else 'client-credentials'
 
 
 class ApiAuthenticationConfig:
 
-    def __init__(self, _authentication_config):
-        self.type: ApiAuthenticationConfigType
+    def __init__(self, _authentication_config: dict):
+        self.type: Union[ApiAuthenticationConfigType, None]
         if 'type' in _authentication_config.keys():
             if _authentication_config['type'] == 'client-credentials':
                 self.type = ApiAuthenticationConfigType.CLIENT_CREDENTIALS
@@ -77,7 +77,7 @@ class RequestType(Enum):
     RESULTS = 1
     STATISTICS = 2
 
-    def __str__(self):
+    def __str__(self) -> str:
         return 'results' if self.name == 'RESULTS' else 'statistics'
 
 
