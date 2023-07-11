@@ -1,14 +1,14 @@
 from query_api_python import Api, Query, RequestOptions
 
 api = Api(
-        {
-            'workspace': 'playground',
-            'config': 'default',
-            'api': 'test',
-            'authentication': {
-                'type': 'client-credentials'
-            }
+    {
+        'workspace': 'playground',
+        'config': 'default',
+        'api': 'test',
+        'authentication': {
+            'type': 'client-credentials'
         }
+    }
 )
 
 queries = [
