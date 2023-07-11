@@ -1,4 +1,4 @@
 from .api import Api
-from .types import RequestType, Query, RequestOptions
+from .types import RequestType, Query
 
-__all__ = ['Api', 'RequestType', 'Query', 'RequestOptions']
+__all__ = ['Api', 'RequestType', 'Query']

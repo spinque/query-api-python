@@ -1,6 +1,6 @@
 import requests
 
-from query_api_python.types import ApiConfig, Query, RequestOptions, RequestType
+from query_api_python.types import ApiConfig, Query, RequestType
 from query_api_python.utils import url_from_queries
 from query_api_python.exceptions import EndpointNotFoundError, ServerError, UnauthorizedError, UnknownError
 from typing import Union, List
@@ -13,11 +13,13 @@ class Api:
 
     def fetch(self,
               queries: Union[Query, List[Query]],
-              options: RequestOptions = RequestOptions(),
+              options=None,
               result_type: RequestType = RequestType.RESULTS
               ):
+        if options is None:
+            options = dict()
         url = url_from_queries(config=self.api_config, queries=queries, request_type=result_type)
-        r = requests.get(url, params=options.__dict__)
+        r = requests.get(url, options)
         return response_handler(r)
 
 

@@ -1,4 +1,4 @@
-from query_api_python import Api, Query, RequestOptions
+from query_api_python import Api, Query
 
 api = Api(
     {
@@ -12,9 +12,9 @@ api = Api(
 )
 
 queries = [
-    Query(endpoint='search', parameters=[('q', 'test')])
+    Query(endpoint='/search', parameters=[('q', 'test')])
 ]
 
-options = RequestOptions(count=20, dev_version='master')
+options = {'count': 20, 'devversion': 'master'}
 
 print(api.fetch(queries, options))

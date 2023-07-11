@@ -87,22 +87,3 @@ class RequestOptionsFormat(Enum):
     RDF = 3
     CSV = 4
     XLSX = 5
-
-
-class RequestOptions:
-
-    def __init__(self,
-                 count: Union[None, int] = None,
-                 offset: Union[None, int] = None,
-                 format: Union[None, RequestOptionsFormat] = None,
-                 level: Union[None, int] = None,
-                 homogeneous_arrays: Union[None, bool] = None,
-                 dev_version: Union[None, str] = None
-                 ):
-        # Don't change parameter names, they are used
-        self.count = count
-        self.offset = offset
-        self.format = format
-        self.level = level
-        self.homogeneousArrays = homogeneous_arrays
-        self.devversion = dev_version
