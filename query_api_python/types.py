@@ -17,7 +17,7 @@ class ApiAuthenticationConfig:
     def __init__(self, _authentication_config: dict):
         self.type: Union[ApiAuthenticationConfigType, None]
         if 'type' in _authentication_config.keys():
-            if _authentication_config['type'] == 'client-credentials':
+            if _authentication_config['type'] == 'client_credentials':
                 self.type = ApiAuthenticationConfigType.CLIENT_CREDENTIALS
             elif _authentication_config['type'] == 'pkce':
                 self.type = ApiAuthenticationConfigType.PKCE
