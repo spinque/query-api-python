@@ -4,42 +4,19 @@ from enum import Enum
 from typing import Union, List, Tuple
 
 
-class ApiAuthenticationConfigType(Enum):
-    CLIENT_CREDENTIALS = 1
-    PKCE = 2
-
-    def __str__(self) -> str:
-        return 'pkcd' if self.name == 'PKCE' else 'client-credentials'
-
-
 class ApiAuthenticationConfig:
 
     def __init__(self, _authentication_config: dict):
-        self.type: Union[ApiAuthenticationConfigType, None]
-        if 'type' in _authentication_config.keys():
-            if _authentication_config['type'] == 'client_credentials':
-                self.type = ApiAuthenticationConfigType.CLIENT_CREDENTIALS
-            elif _authentication_config['type'] == 'pkce':
-                self.type = ApiAuthenticationConfigType.PKCE
-            else:
-                raise ValueError(f"{_authentication_config} is not a valid authentication type.")
-        else:
-            self.type = None
         self.auth_server: str = _authentication_config['authServer'] \
             if 'authServer' in _authentication_config.keys() else 'login.spinque.com'
         self.clientId: str = _authentication_config['clientId'] if 'clientId' in _authentication_config.keys() else None
-        self.callback: str = _authentication_config['callback'] if 'callback' in _authentication_config.keys() else None
         self.clientSecret: str = \
             _authentication_config['clientSecret'] if 'clientSecret' in _authentication_config.keys() else None
-        if self.callback is not None and self.clientSecret is not None:
-            raise ValueError("Either callback or clientSecret should be defined, not both.")
 
     def to_dict(self) -> dict:
         return {
-            'type': str(self.type),
             'authServer': self.auth_server,
             'clientId': self.clientId,
-            'callback': self.callback,
             'clientSecret': self.clientSecret
         }
 
