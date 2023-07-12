@@ -34,7 +34,7 @@ class ApiAuthenticationConfig:
         if self.callback is not None and self.clientSecret is not None:
             raise ValueError("Either callback or clientSecret should be defined, not both.")
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {
             'type': str(self.type),
             'authServer': self.auth_server,
@@ -55,7 +55,7 @@ class ApiConfig:
         self.authentication: Union[ApiAuthenticationConfig, None] = \
             ApiAuthenticationConfig(_api_config['authentication']) if 'authentication' in _api_config.keys() else None
 
-    def __str__(self):
+    def __str__(self) -> str:
         return json.dumps({
             'baseUrl': self.base_url,
             'version': self.version,

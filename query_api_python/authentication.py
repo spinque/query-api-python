@@ -27,7 +27,7 @@ class Authentication:
             self.generate_token()
             return self.access_token, self.expires
 
-    def generate_token(self):
+    def generate_token(self) -> None:
         body = {
             'grant_type': 'client_credentials',
             'client_id': self.client_id,
