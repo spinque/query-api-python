@@ -11,7 +11,7 @@ Not released yet on PyPI, but it will be:
 Using PyPi:
 
 ```bash
-$ pip install spinque-api
+$ pip install spinque-query-api
 ```
 
 ## Documentation
