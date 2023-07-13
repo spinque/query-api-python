@@ -34,7 +34,7 @@ api = Api(
 
 
 query = Query(endpoint='search', parameters=[('q', 'test')])
-options = RequestOptions(count=20, dev_version='master')
+options = {'count': 20, 'dev_version': 'master'}
 
 print(api.fetch(query, options))
 ```
