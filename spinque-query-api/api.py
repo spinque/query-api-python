@@ -1,9 +1,9 @@
 import requests
 
-from query_api_python.types import ApiConfig, Query, RequestType
-from query_api_python.utils import url_from_queries
-from query_api_python.exceptions import EndpointNotFoundError, ServerError, UnauthorizedError, UnknownError
-from query_api_python.authentication import Authentication
+from spinque_query_api.types import ApiConfig, Query, RequestType
+from spinque_query_api.utils import url_from_queries
+from spinque_query_api.exceptions import EndpointNotFoundError, ServerError, UnauthorizedError, UnknownError
+from spinque_query_api.authentication import Authentication
 from typing import Union, List
 
 

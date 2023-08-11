@@ -1,4 +1,4 @@
-from query_api_python import Api, Query
+from spinque_query_api import Api, Query
 
 api = Api(
     {

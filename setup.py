@@ -7,6 +7,8 @@ setup(
     author='Spinque BV',
     author_email='chris@spinque.com',
     install_requires=['requests'],
+    package_dir={'spinque_query_api': 'spinque-query-api'},
+    packages=['spinque_query_api'],
     url='https://github.com/spinque/query-api-python/',
     license='MIT License'
 )

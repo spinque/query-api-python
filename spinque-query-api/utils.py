@@ -1,4 +1,4 @@
-from query_api_python.types import ApiConfig, Query, RequestType
+from spinque_query_api.types import ApiConfig, Query, RequestType
 from typing import List, Union
 from urllib import parse
 
