@@ -6,9 +6,7 @@ The Spinque Query API is an HTTP API to retrieve search results for queries. Als
 
 ## Installing
 
-Not released yet on PyPI, but it will be: 
-
-Using PyPi:
+Using [PyPi](https://pypi.org/project/spinque-query-api/):
 
 ```bash
 $ pip install spinque-query-api
