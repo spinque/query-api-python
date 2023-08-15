@@ -45,7 +45,7 @@ class ApiConfig:
 
 class Query:
 
-    def __init__(self, endpoint: str, parameters: List[Tuple[str, str]]):
+    def __init__(self, endpoint: str, parameters: List[Tuple[str, str]] = None):
         self.endpoint = endpoint
         self.parameters = parameters
 
