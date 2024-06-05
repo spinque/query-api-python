@@ -20,7 +20,7 @@ For documentation on the Spinque Query API itself, please see [this](https://doc
 
 ```python3
 
-from query_api_python import Api, Query
+from spinque_query_api import Api, Query
 
 api = Api(
     {
@@ -42,7 +42,7 @@ print(api.fetch(query, options))
 Some Spinque APIs require authentication using OAuth 2.0. Support for the Client Credentials flow (for server applications) is provided through this library:
 
 ```python3
-from query_api_python import Api, Query
+from spinque_query_api import Api, Query
 
 api = Api(
     {
