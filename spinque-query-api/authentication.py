@@ -9,6 +9,7 @@ CONFIG_DIR = os.path.expanduser('~/.config/')
 CACHE_DIR = os.path.expanduser('~/.cache/')
 SPINQUE_CONFIG_FILE = "spinque.config"
 
+
 class Authentication:
 
     def __init__(self,

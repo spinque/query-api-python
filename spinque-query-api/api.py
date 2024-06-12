@@ -38,16 +38,15 @@ class Api:
 
 
 def response_handler(response: requests.models.Response) -> str:
-    match response.status_code:
-        case 200:
-            return response.json()
-        case 401:
-            raise UnauthorizedError(response.text, 401)
-        case 400:
-            if response.json()['message'].startswith('no endpoint'):
-                raise EndpointNotFoundError(response.text, 400)
-            raise UnknownError(response.text, 400)
-        case 500:
-            raise ServerError(response.text, 500)
-        case default:
-            raise UnknownError(response.text, default)
+    if response.status_code == 200:
+        return response.json()
+    elif response.status_code == 401:
+        raise UnauthorizedError(response.text, 401)
+    elif response.status_code == 400:
+        if response.json()['message'].startswith('no endpoint'):
+            raise EndpointNotFoundError(response.text, 400)
+        raise UnknownError(response.text, 400)
+    elif response.status_code == 500:
+        raise ServerError(response.text, 500)
+    else:
+        raise UnknownError(response.text)

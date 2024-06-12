@@ -51,12 +51,11 @@ def join(segments: List[str]) -> str:
     result = []
     for seg in segments:
         for s in seg.split('/'):
-            match s:
-                case '.':
-                    continue
-                case '..':
-                    result.pop()
-                    continue
-                case _:
-                    result.append(s)
+            if s == '.':
+                continue
+            elif s == '..':
+                result.pop()
+                continue
+            else:
+                result.append(s)
     return '/'.join(result)
