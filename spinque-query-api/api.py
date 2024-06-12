@@ -25,7 +25,7 @@ class Api:
               queries: Union[Query, List[Query]],
               options=None,
               result_type: RequestType = RequestType.RESULTS
-              ) -> str:
+              ) -> dict:
         if options is None:
             options = dict()
         headers = {}
@@ -38,7 +38,7 @@ class Api:
         return response_handler(r)
 
 
-def response_handler(response: requests.models.Response) -> str:
+def response_handler(response: requests.models.Response) -> dict:
     if response.status_code == 200:
         return response.json()
     elif response.status_code == 401:
