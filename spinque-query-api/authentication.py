@@ -14,7 +14,7 @@ class Authentication:
 
     def __init__(self,
                  name: str,
-                 client_id: str,
+                 client_id: str = None,
                  client_secret: str = None,
                  base_url: str = None,
                  auth_server: str = 'https://login.spinque.com'

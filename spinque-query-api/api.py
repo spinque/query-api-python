@@ -14,6 +14,7 @@ class Api:
         self.authentication = None
         if self.api_config.authentication is not None:
             self.authentication = Authentication(
+                name=self.api_config.authentication.name,
                 auth_server=self.api_config.authentication.auth_server,
                 client_id=self.api_config.authentication.clientId,
                 client_secret=self.api_config.authentication.clientSecret,
