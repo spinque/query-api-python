@@ -94,7 +94,7 @@ class Authentication:
         r = requests.post(f'{self.auth_server}/oauth/token', headers=headers, data=body)
         if r.status_code == 200:
             self.access_token = r.json()['access_token']
-            self.expires = time.time() + r.json()['expires_in']
+            self.expires = round(time.time()) + r.json()['expires_in']
             self.write_token()
         else:
             raise ValueError(f"Could not generate access token: {r.text}")
