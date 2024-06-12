@@ -21,15 +21,15 @@ class Authentication:
                  ):
         self.name = name
         self.auth_server = auth_server
-        self.client_secret = client_secret
-        self.client_id = client_id
+        self.__client_secret = client_secret
+        self.__client_id = client_id
         self.base_url = base_url
         if not name:
             raise ValueError('App name needs to be provided')
         if bool(client_id) ^ bool(client_secret):
             raise ValueError('Either client_id and client_secret must be provided, or neither (and read from file)')
-        self.access_token: Union[str, None] = None
-        self.expires: Union[int, None] = 0
+        self.__access_token: Union[str, None] = None
+        self.__expires: Union[int, None] = 0
 
     def try_load_credentials(self) -> None:
         if os.path.isfile("spinque.config"):
@@ -46,9 +46,9 @@ class Authentication:
             for line in f.readlines():
                 param, value = line.strip().split('=')
                 if param == 'clientid':
-                    self.client_id = value
+                    self.__client_id = value
                 elif param == 'clientsecret':
-                    self.client_secret = value
+                    self.__client_secret = value
                 else:
                     raise ValueError("Unrecognized parameter", param)
 
@@ -59,33 +59,33 @@ class Authentication:
                 for line in f:
                     param, value = line.strip().split('=')
                     if param == 'token':
-                        self.access_token = value.strip('"')
+                        self.__access_token = value.strip('"')
                     elif param == 'expires':
-                        self.expires = int(value)
+                        self.__expires = int(value)
                     else:
                         raise ValueError("Unrecognized parameter", param)
 
     def get_access_token(self) -> Tuple[str, int]:
-        if not self.client_id:
+        if not self.__client_id:
             self.try_load_credentials()
-        if not self.access_token:
+        if not self.__access_token:
             self.try_load_token()
-        if self.access_token and self.expires > time.time() - 10_000:
-            return self.access_token, self.expires
+        if self.__access_token and self.__expires > time.time() - 10_000:
+            return self.__access_token, self.__expires
         else:
             self.generate_token()
-            return self.access_token, self.expires
+            return self.__access_token, self.__expires
 
     def write_token(self) -> None:
         with open(os.path.join(CACHE_DIR, f"spinqueToken.{self.name}"), 'w') as f:
-            f.write(f'token="{self.access_token}"\n')
-            f.write(f"expires={self.expires}")
+            f.write(f'token="{self.__access_token}"\n')
+            f.write(f"expires={self.__expires}")
 
     def generate_token(self) -> None:
         body = {
             'grant_type': 'client_credentials',
-            'client_id': self.client_id,
-            'client_secret': self.client_secret,
+            'client_id': self.__client_id,
+            'client_secret': self.__client_secret,
             'audience': self.base_url
         }
         headers = {
@@ -93,8 +93,8 @@ class Authentication:
         }
         r = requests.post(f'{self.auth_server}/oauth/token', headers=headers, data=body)
         if r.status_code == 200:
-            self.access_token = r.json()['access_token']
-            self.expires = round(time.time()) + r.json()['expires_in']
+            self.__access_token = r.json()['access_token']
+            self.__expires = round(time.time()) + r.json()['expires_in']
             self.write_token()
         else:
             raise ValueError(f"Could not generate access token: {r.text}")
