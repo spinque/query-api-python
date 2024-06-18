@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='spinque-query-api',
-    version='0.0.1',
+    version='0.0.2',
     description='Library to use the Spinque Query API in your Python project.',
     author='Spinque B.V.',
     author_email='chris@spinque.com',
