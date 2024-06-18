@@ -25,7 +25,7 @@ class Authentication:
         self.base_url = base_url
         if not name:
             raise ValueError('App name needs to be provided')
-        if bool(client_id) ^ bool(client_secret): # xor
+        if bool(client_id) ^ bool(client_secret):  # xor
             raise ValueError('Either client_id and client_secret must be provided, or neither (and read from file)')
         self.__access_token: Union[str, None] = None
         self.__expires: Union[int, None] = 0
