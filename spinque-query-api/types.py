@@ -7,6 +7,7 @@ from typing import Union, List, Tuple
 class ApiAuthenticationConfig:
 
     def __init__(self, _authentication_config: dict):
+        self.name = _authentication_config['name'] if 'name' in _authentication_config else None
         self.auth_server: str = _authentication_config['authServer'] \
             if 'authServer' in _authentication_config.keys() else 'login.spinque.com'
         self.clientId: str = _authentication_config['clientId'] if 'clientId' in _authentication_config.keys() else None
