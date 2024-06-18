@@ -3,7 +3,6 @@ import time
 import requests
 
 from typing import Union, Tuple
-from operator import xor
 
 CONFIG_DIR = os.path.expanduser('~/.config/')
 CACHE_DIR = os.path.expanduser('~/.cache/')
@@ -26,7 +25,7 @@ class Authentication:
         self.base_url = base_url
         if not name:
             raise ValueError('App name needs to be provided')
-        if bool(client_id) and bool(client_secret):
+        if bool(client_id) ^ bool(client_secret): # xor
             raise ValueError('Either client_id and client_secret must be provided, or neither (and read from file)')
         self.__access_token: Union[str, None] = None
         self.__expires: Union[int, None] = 0
