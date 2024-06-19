@@ -69,7 +69,7 @@ class Authentication:
             self.try_load_credentials()
         if not self.__access_token:
             self.try_load_token()
-        if self.__access_token and self.__expires > time.time() - 10_000:
+        if self.__access_token and self.__expires > time.time() + 10:
             return self.__access_token, self.__expires
         else:
             self.generate_token()
