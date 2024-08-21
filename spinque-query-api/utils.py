@@ -1,4 +1,4 @@
-from spinque_query_api.types import ApiConfig, Query, RequestType
+from spinque_query_api.types import Query, RequestType
 from typing import List, Union
 from urllib import parse
 
@@ -15,33 +15,23 @@ def path_from_query(query: Query) -> str:
     return join(parts)
 
 
-def url_from_queries(config: ApiConfig,
-                     queries: Union[Query, List[Query]],
-                     request_type: RequestType = RequestType.RESULTS
-                     ) -> str:
-    if not type(queries) == list:
+def url_from_queries(base_url, version, workspace, api, config, queries: Union[Query, List[Query]],
+                     request_type: RequestType = RequestType.RESULTS) -> str:
+    if not isinstance(queries, list):
         queries = [queries]
-    if not config.base_url:
-        raise ValueError('Base URL missing')
-    if not config.version:
-        raise ValueError('Version missing')
-    if not config.workspace:
-        raise ValueError('Workspace missing')
-    if not config.api:
-        raise ValueError('API name missing')
 
     # Construct base URL containing Spinque version and workspace
-    url = config.base_url
+    url = base_url
     if not url.endswith('/'):
         url += '/'
-    url += join([config.version, config.workspace, 'api', config.api])
+    url += join([version, workspace, 'api', api])
 
     # Add the path represented by the Query objects and request type
     url += '/' + join([path_from_queries(queries), str(request_type)])
 
     # Add config if provided
-    if config.config:
-        url += f'?config={config.config}'
+    if config:
+        url += f'?config={config}'
 
     return url
 

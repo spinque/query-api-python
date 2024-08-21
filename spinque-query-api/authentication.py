@@ -11,13 +11,8 @@ SPINQUE_CONFIG_FILE = "spinque.config"
 
 class Authentication:
 
-    def __init__(self,
-                 name: str,
-                 client_id: str = None,
-                 client_secret: str = None,
-                 base_url: str = None,
-                 auth_server: str = 'https://login.spinque.com'
-                 ):
+    def __init__(self, name: str, client_id: str = None, client_secret: str = None,
+                 base_url: str = 'https://rest.spinque.com/', auth_server: str = 'https://login.spinque.com'):
         self.name = name
         self.auth_server = auth_server
         self.__client_secret = client_secret
