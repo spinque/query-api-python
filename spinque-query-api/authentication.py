@@ -1,3 +1,4 @@
+import hashlib
 import os.path
 import time
 import requests
@@ -11,15 +12,12 @@ SPINQUE_CONFIG_FILE = "spinque.config"
 
 class Authentication:
 
-    def __init__(self, name: str, client_id: str = None, client_secret: str = None,
+    def __init__(self, client_id: str = None, client_secret: str = None,
                  base_url: str = 'https://rest.spinque.com/', auth_server: str = 'https://login.spinque.com'):
-        self.name = name
         self.auth_server = auth_server
         self.__client_secret = client_secret
         self.__client_id = client_id
         self.base_url = base_url
-        if not name:
-            raise ValueError('App name needs to be provided')
         if bool(client_id) ^ bool(client_secret):  # xor
             raise ValueError('Either client_id and client_secret must be provided, or neither (and read from file)')
         self.__access_token: Union[str, None] = None
@@ -47,7 +45,7 @@ class Authentication:
                     raise ValueError("Unrecognized parameter", param)
 
     def try_load_token(self) -> None:
-        token_file = os.path.join(CACHE_DIR, f"spinqueToken.{self.name}")
+        token_file = os.path.join(CACHE_DIR, f"spinqueToken.{self.generate_name()}")
         if os.path.isfile(token_file):
             with open(token_file, 'r') as f:
                 for line in f:
@@ -71,7 +69,7 @@ class Authentication:
             return self.__access_token, self.__expires
 
     def write_token(self) -> None:
-        with open(os.path.join(CACHE_DIR, f"spinqueToken.{self.name}"), 'w') as f:
+        with open(os.path.join(CACHE_DIR, f"spinqueToken.{self.generate_name()}"), 'w') as f:
             f.write(f'token="{self.__access_token}"\n')
             f.write(f"expires={self.__expires}")
 
@@ -92,3 +90,8 @@ class Authentication:
             self.write_token()
         else:
             raise ValueError(f"Could not generate access token: {r.text}")
+
+    def generate_name(self):
+        if not(self.__client_id and self.__client_secret):
+            raise ValueError("Client ID and Client Secret must be known before a name can be generated")
+        return hashlib.md5((self.__client_id+self.__client_secret).encode('utf-8')).hexdigest()
