@@ -37,7 +37,7 @@ options = {'count': 20, 'dev_version': 'master'}
 print(api.fetch(query, options))
 
 # or a statistics call:
-print(api.fetch(query, options, ResultType.STATISTICS))
+print(api.fetch(query, options, RequestType.STATISTICS))
 ```
 
 
